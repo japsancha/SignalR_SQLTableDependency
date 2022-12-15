@@ -6,8 +6,12 @@ namespace SignalR_SQLTableDependency.Repositories
 {
 	public class ProductRepository
 	{
-		private readonly string? connectionString;
+		private readonly string connectionString;
 
+		public ProductRepository(string connectionString)
+		{
+			this.connectionString = connectionString;
+		}
 		public List<Product> GetProducts()
 		{
 			List<Product> products = new();
