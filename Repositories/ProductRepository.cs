@@ -33,10 +33,11 @@ namespace SignalR_SQLTableDependency.Repositories
 
 			return products;
 		}
-		public DataTable GetProductDetailsFromDb()
+		private DataTable GetProductDetailsFromDb()
 		{
 			const string query = "SELECT Id, Name, Category, Price FROM Product";
-			DataTable dt = new();
+			DataTable dataTable = new();
+
 			using var connection = new SqlConnection(connectionString);
 			try
 			{
@@ -44,9 +45,9 @@ namespace SignalR_SQLTableDependency.Repositories
 				using (var command = new SqlCommand(query, connection))
 				{
 					using var reader = command.ExecuteReader();
-					dt.Load(reader);
+					dataTable.Load(reader);
 				}
-				return dt;
+				return dataTable;
 			}
 			catch (SqlException)
 			{

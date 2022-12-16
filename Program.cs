@@ -11,8 +11,10 @@ builder.Services.AddSignalR();
 // Add Class through DI
 builder.Services.AddSingleton<DashboardHub>();
 builder.Services.AddSingleton<SubscribeProductTableDependency>();
+builder.Services.AddSingleton<SubscribeSaleTableDependency>();
 
 var app = builder.Build();
+var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -40,6 +42,7 @@ app.MapControllerRoute(
  * We create one middleware and call SubscribeTableDependency() method in it.
  */
 
-app.UseProductTableDependency();
+app.UseProductTableDependency(connectionString);
+app.UseSaleTableDependency(connectionString);
 
 app.Run();
