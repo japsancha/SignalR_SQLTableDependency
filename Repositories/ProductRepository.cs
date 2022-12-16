@@ -35,30 +35,26 @@ namespace SignalR_SQLTableDependency.Repositories
 		}
 		public DataTable GetProductDetailsFromDb()
 		{
-			const string query = "SELECT Id, Name, Category, Price FROM Products";
+			const string query = "SELECT Id, Name, Category, Price FROM Product";
 			DataTable dt = new();
-			using(var connection = new SqlConnection(connectionString))
+			using var connection = new SqlConnection(connectionString);
+			try
 			{
-				try
+				connection.Open();
+				using (var command = new SqlCommand(query, connection))
 				{
-					connection.Open();
-					using(var command = new SqlCommand(query, connection))
-					{
-						using(var reader = command.ExecuteReader())
-						{
-							dt.Load(reader);
-						}
-					}
-					return dt;
+					using var reader = command.ExecuteReader();
+					dt.Load(reader);
 				}
-				catch (SqlException)
-				{
-					throw;
-				}
-				finally
-				{
-					connection.Close();
-				}
+				return dt;
+			}
+			catch (SqlException)
+			{
+				throw;
+			}
+			finally
+			{
+				connection.Close();
 			}
 		}
 	}

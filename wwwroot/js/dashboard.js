@@ -3,7 +3,7 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/dashboardHub").build()
 $(function () {
 	connection.start().then(function () {
-		alert("connected to dashboarsdHub")
+		// alert("connected to dashboarsdHub")
 
 		InvokeProducts()
 	}).catch(function (err) {
@@ -16,7 +16,7 @@ connection.on("ReceivedProducts", function (products) {
 })
 
 function InvokeProducts() {
-	alert("invoke products")
+	// alert("invoke products")
 	connection.invoke("SendProducts").catch(function (err) {
 		return console.error(err.toString())
 	})
