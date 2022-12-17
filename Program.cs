@@ -41,8 +41,7 @@ app.MapControllerRoute(
  * because we need to pass the HubContext to the SubscribeTableDependency() method.
  * We create one middleware and call SubscribeTableDependency() method in it.
  */
-
-app.UseProductTableDependency(connectionString);
-app.UseSaleTableDependency(connectionString);
+app.UseSqlTableDependency<SubscribeProductTableDependency>(connectionString);
+app.UseSqlTableDependency<SubscribeSaleTableDependency>(connectionString);
 
 app.Run();

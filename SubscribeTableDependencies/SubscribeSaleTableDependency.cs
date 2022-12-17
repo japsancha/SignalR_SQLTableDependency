@@ -5,7 +5,7 @@ using TableDependency.SqlClient.Base.EventArgs;
 
 namespace SignalR_SQLTableDependency.SubscribeTableDependencies;
 
-public class SubscribeSaleTableDependency
+public class SubscribeSaleTableDependency : ISubscribeTableDependency
 {
 	SqlTableDependency<Sale> tableDependency;
 	readonly DashboardHub dashboardHub;
