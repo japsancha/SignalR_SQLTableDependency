@@ -69,9 +69,45 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="x_panel">
+				<div class="x_title">
+					<h4>Products</h4>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<canvas id="canvasProducts" width="400" height="400"></canvas>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="x_panel">
+				<div class="x_title">
+					<h4>Sales</h4>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<canvas id="canvasSales" width="500" height="400"></canvas>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="x_panel">
+				<div class="x_title">
+					<h4>Customer</h4>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<canvas id="canvasCustomers" width="300" height="400"></canvas>
+				</div>
+			</div>
+		</div>
 </div>
 
 @section Scripts {
 	<script src="~/js/signalr/dist/browser/signalr.js"></script>
+	@* <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.js" integrity="sha512-WO0SXOKvvsK5FNXvL6ubuT0GxNXf+c4PoCrVl+LEpB5F2MaV0+JQ4hvqknzIF7vox5RfxByJGuMEremu79g5pQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> *@
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="~/js/dashboard.js"></script>
 }

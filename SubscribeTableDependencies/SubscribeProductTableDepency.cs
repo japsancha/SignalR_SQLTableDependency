@@ -6,7 +6,7 @@ namespace SignalR_SQLTableDependency.SubscribeTableDependencies;
 
 public class SubscribeProductTableDependency: ISubscribeTableDependency
 {
-	SqlTableDependency<Product> tableDependency;
+	SqlTableDependency<Product> tableDependency = null!;
 	readonly DashboardHub dashboardHub;
 
 	public SubscribeProductTableDependency(DashboardHub dashboardHub)
@@ -29,7 +29,7 @@ public class SubscribeProductTableDependency: ISubscribeTableDependency
 	{
 		if (e.ChangeType != TableDependency.SqlClient.Base.Enums.ChangeType.None)
 		{
-			dashboardHub.SendProducts();
+			_ = dashboardHub.SendProducts();
 		}
 	}
 

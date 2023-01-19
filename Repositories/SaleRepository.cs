@@ -12,6 +12,7 @@ public class SaleRepository
 	{
 		this.connectionString = connectionString;
 	}
+
 	public List<Sale> GetSales()
 	{
 		List<Sale> sales = new();
@@ -24,9 +25,9 @@ public class SaleRepository
 			sale = new()
 			{
 				Id = Convert.ToInt32(row["Id"]),
-				Customer = row["Customer"].ToString(),
-				Amount = Convert.ToDecimal(row["Amount"]),
-				PurchasedOn = Convert.ToDateTime(row["PurchasedOn"])
+					Customer = row["Customer"].ToString(),
+					Amount = Convert.ToDecimal(row["Amount"]),
+					PurchasedOn = Convert.ToDateTime(row["PurchasedOn"])
 			};
 
 			sales.Add(sale);
@@ -44,7 +45,54 @@ public class SaleRepository
 		try
 		{
 			connection.Open();
-			using (SqlCommand command = new(query, connection))
+			using(SqlCommand command = new(query, connection))
+			{
+				using SqlDataReader reader = command.ExecuteReader();
+				dataTable.Load(reader);
+			}
+			return dataTable;
+		}
+		catch (Exception)
+		{
+			throw;
+		}
+		finally
+		{
+			connection.Close();
+		}
+	}
+
+	public List<SaleForGraph> GetSalesForGraph()
+	{
+		List<SaleForGraph> salesForGraph = new();
+		SaleForGraph saleForGraph;
+
+		DataTable dataTable = GetSalesForGraphFromDb();
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			saleForGraph = new()
+			{
+				PurchasedOn = Convert.ToDateTime(row["PurchasedOn"]).ToString("dd/MM/yyyy"),
+				Amount = Convert.ToDecimal(row["Amount"])
+			};
+
+			salesForGraph.Add(saleForGraph);
+		}
+
+		return salesForGraph;
+	}
+
+	private DataTable GetSalesForGraphFromDb()
+	{
+		const string query = "SELECT  PurchasedOn, SUM(Amount) AS Amount FROM Sale GROUP BY PurchasedOn";
+		DataTable dataTable = new();
+
+		using SqlConnection connection = new(connectionString);
+		try
+		{
+			connection.Open();
+			using(SqlCommand command = new(query, connection))
 			{
 				using SqlDataReader reader = command.ExecuteReader();
 				dataTable.Load(reader);

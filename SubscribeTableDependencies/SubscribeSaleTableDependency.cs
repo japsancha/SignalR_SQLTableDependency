@@ -7,7 +7,7 @@ namespace SignalR_SQLTableDependency.SubscribeTableDependencies;
 
 public class SubscribeSaleTableDependency : ISubscribeTableDependency
 {
-	SqlTableDependency<Sale> tableDependency;
+	SqlTableDependency<Sale> tableDependency = null!;
 	readonly DashboardHub dashboardHub;
 
 	public SubscribeSaleTableDependency(DashboardHub dashboardHub)
@@ -21,7 +21,7 @@ public class SubscribeSaleTableDependency : ISubscribeTableDependency
 	// instead of calling this method in Program.cs, we call it in a middleware
 	public void SubscribeTableDependency(string connectionString)
 	{
-		tableDependency = new SqlTableDependency<Sale>(connectionString, "Sale");
+		tableDependency = new SqlTableDependency<Sale>(connectionString);
 
 		tableDependency.OnChanged += TableDependency_OnChanged;
 		tableDependency.OnError += TableDependency_OnError;
@@ -37,7 +37,7 @@ public class SubscribeSaleTableDependency : ISubscribeTableDependency
 	{
 		if (e.ChangeType != TableDependency.SqlClient.Base.Enums.ChangeType.None)
 		{
-			dashboardHub.SendSales();
+			_ = dashboardHub.SendSales();
 		}
 	}
 }

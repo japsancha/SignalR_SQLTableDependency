@@ -12,6 +12,7 @@ builder.Services.AddSignalR();
 builder.Services.AddSingleton<DashboardHub>();
 builder.Services.AddSingleton<SubscribeProductTableDependency>();
 builder.Services.AddSingleton<SubscribeSaleTableDependency>();
+builder.Services.AddSingleton<SubscribeCustomerTableDependency>();
 
 var app = builder.Build();
 var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
@@ -43,5 +44,6 @@ app.MapControllerRoute(
  */
 app.UseSqlTableDependency<SubscribeProductTableDependency>(connectionString);
 app.UseSqlTableDependency<SubscribeSaleTableDependency>(connectionString);
+app.UseSqlTableDependency<SubscribeCustomerTableDependency>(connectionString);
 
 app.Run();
